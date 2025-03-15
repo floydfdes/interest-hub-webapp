@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+:root {
+    --color-primary: #1e3a8a;
+    /* Blue */
+    --color-secondary: #10b981;
+    /* Green */
+    --color-background: #f3f4f6;
+    /* Light Gray */
+    --color-text: #111827;
+    /* Dark Gray */
+    --color-text-light: #ffffff;
+    /* White */
+    --color-accent: #f59e0b;
+    /* Yellow */
+}
+
+.bg-primary {
+    background-color: var(--color-primary);
+}
+
+.bg-secondary {
+    background-color: var(--color-secondary);
+}
+
+.bg-background {
+    background-color: var(--color-background);
+}
+
+.text-primary {
+    color: var(--color-primary);
+}
+
+.text-secondary {
+    color: var(--color-secondary);
+}
+
+.text-background {
+    color: var(--color-background);
+}
+
+.text-text {
+    color: var(--color-text);
+}
+
+.text-text-light {
+    color: var(--color-text-light);
+}
+
+.bg-accent {
+    background-color: var(--color-accent);
+}
+
+.text-accent {
+    color: var(--color-accent);
+}
