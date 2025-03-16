@@ -62,7 +62,7 @@ const features = [
     title: "Explore Topics",
     description:
       "Browse through a vast collection of topics and discover content tailored to your interests. Engage with discussions, read insightful posts, and stay updated on your favorite subjects.",
-    icon: FaSearch, 
+    icon: FaSearch,
   },
   {
     title: "Engage with Community",
@@ -74,13 +74,13 @@ const features = [
     title: "Create & Share",
     description:
       "Express your thoughts and creativity by posting your own content. Share ideas, stories, and experiences with an audience that values your perspective.",
-    icon: FaPenNib, 
+    icon: FaPenNib,
   },
 ];
 
 /* Updated Steps Data with Icons */
 const steps = [
-  { step: "1. Sign Up", description: "Create your free Interest Hub account and get started.", icon: MdPersonAdd },
-  { step: "2. Choose Interests", description: "Follow topics that excite you and personalize your feed.", icon: FaListAlt }, 
-  { step: "3. Engage & Share", description: "Start posting, commenting, and connecting with the community!", icon: FaShareAlt }, 
+  { step: "Sign Up", description: "Create your free Interest Hub account and get started.", icon: MdPersonAdd },
+  { step: "Choose Interests", description: "Follow topics that excite you and personalize your feed.", icon: FaListAlt },
+  { step: "Engage & Share", description: "Start posting, commenting, and connecting with the community!", icon: FaShareAlt },
 ];
