@@ -1,9 +1,9 @@
-import { posts } from "@/app/data/dummyJson";
+import { getPostById } from "@/app/api/api";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function PostPage({ params }: { params: { id: string } }) {
-    const post = posts.find((p) => p.id === params.id);
+export default async function PostPage({ params }: { params: { id: string } }) {
+    const post = await getPostById(params.id);
 
     if (!post) {
         return <div className="text-center text-red-500 text-lg">Post not found</div>;
@@ -20,7 +20,6 @@ export default function PostPage({ params }: { params: { id: string } }) {
                     className="w-full h-64 object-cover rounded-md"
                 />
 
-                {/* Post Header */}
                 <div className="mt-4 flex items-center gap-3">
                     <Image
                         src={post.author.profilePic}
@@ -35,12 +34,10 @@ export default function PostPage({ params }: { params: { id: string } }) {
                     </div>
                 </div>
 
-                {/* Post Content */}
                 <span className="mt-4 text-sm text-secondary font-semibold">{post.category}</span>
                 <h1 className="text-3xl font-bold text-primary mt-2">{post.title}</h1>
                 <p className="mt-2 text-gray-600">{post.content}</p>
 
-                {/* Likes Section */}
                 <div className="mt-4">
                     <p className="text-gray-600 font-medium">Liked by:</p>
                     <div className="flex flex-wrap mt-2 gap-3">
@@ -59,7 +56,6 @@ export default function PostPage({ params }: { params: { id: string } }) {
                     </div>
                 </div>
 
-                {/* Comments Section */}
                 <div className="mt-6">
                     <h3 className="text-xl font-semibold text-primary">Comments</h3>
                     <div className="mt-4 space-y-6">
@@ -83,7 +79,6 @@ export default function PostPage({ params }: { params: { id: string } }) {
                                     <span>💬 {comment.replies.length} Replies</span>
                                 </div>
 
-                                {/* Nested Replies */}
                                 {comment.replies.length > 0 && (
                                     <div className="mt-3 pl-6 border-l border-gray-300 space-y-3">
                                         {comment.replies.map((reply) => (

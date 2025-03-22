@@ -2,8 +2,9 @@ import "./globals.css";
 
 import { Geist, Geist_Mono } from "next/font/google";
 
-import Footer from "./components/Footer";
 import type { Metadata } from "next";
+import Footer from "./components/Footer";
+import GlobalLoader from "./components/GlobalLoader";
 import Navbar from "./components/Navbar";
 
 const geistSans = Geist({
@@ -30,6 +31,7 @@ export default function Layout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} flex flex-col min-h-screen`}>
         <Navbar />
+        <GlobalLoader />
         <main className="flex-grow">{children}</main>
         <Footer />
       </body>
