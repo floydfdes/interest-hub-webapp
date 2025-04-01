@@ -1,7 +1,6 @@
-import { posts } from "../data/dummyJson";
-//const API_BASE = process.env.API_URL || "https://api.example.com";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4300/api";
 
-// Global loader dispatch
 function startLoader() {
     if (typeof window !== "undefined") {
         window.dispatchEvent(new Event("loader:start"));
@@ -14,55 +13,81 @@ function stopLoader() {
     }
 }
 
-// Generic GET method (loader wrapped)
-async function get<T>(url: string): Promise<T> {
+const request = async <T>(
+    method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE",
+    endpoint: string,
+    options: {
+        token?: string;
+        body?: any;
+        queryParams?: Record<string, any>;
+    } = {}
+): Promise<T> => {
     startLoader();
     try {
-        const res = await fetch(url);
-        if (!res.ok) throw new Error("Failed to fetch");
+        const { token, body, queryParams } = options;
+        const url = new URL(`${API_BASE}${endpoint}`);
+
+        if (queryParams) {
+            Object.entries(queryParams).forEach(([key, value]) =>
+                url.searchParams.append(key, String(value))
+            );
+        }
+
+        const headers: Record<string, string> = {
+            "Content-Type": "application/json",
+        };
+        if (token) headers["Authorization"] = `Bearer ${token}`;
+
+        const res = await fetch(url.toString(), {
+            method,
+            headers,
+            body: body ? JSON.stringify(body) : undefined,
+        });
+
+        if (!res.ok) throw new Error((await res.json()).message || "Request failed");
         return await res.json();
     } finally {
         stopLoader();
     }
-}
+};
 
-// Simulated delay for dummy API
-function sleep(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-}
+// Auth
+export const registerUser = (data: any) => request("POST", "/auth/register", { body: data });
+export const loginUser = (data: any) => request("POST", "/auth/login", { body: data });
+export const refreshToken = () => request("POST", "/auth/refresh");
+export const logoutUser = () => request("POST", "/auth/logout");
+export const changePassword = (data: any, token: string) =>
+    request("PATCH", "/auth/change-password", { body: data, token });
+export const forgotPassword = (email: string) =>
+    request("POST", "/auth/forgot-password", { body: { email } });
+export const resetPassword = (data: any) =>
+    request("POST", "/auth/reset-password", { body: data });
 
-// -------- Post APIs --------
+// Posts
+export const getAllPosts = () => request("GET", "/posts");
+export const getPostById = (id: string) => request("GET", `/posts/${id}`);
+export const createPost = (data: any, token: string) =>
+    request("POST", "/posts", { body: data, token });
+export const updatePost = (id: string, data: any, token: string) =>
+    request("PUT", `/posts/${id}`, { body: data, token });
+export const deletePost = (id: string, token: string) =>
+    request("DELETE", `/posts/${id}`, { token });
 
-export async function getAllPostPreviews() {
-    startLoader();
-    try {
-        await sleep(10000);
-
-        // Real API call example:
-        // const res = await fetch(`${API_BASE}/posts`, { next: { revalidate: 60 } });
-        // if (!res.ok) throw new Error("Failed to fetch posts");
-        // return await res.json();
-
-        return posts;
-    } finally {
-        stopLoader();
-    }
-}
-
-export async function getPostById(id: string) {
-    startLoader();
-    try {
-        await sleep(1000);
-
-        // Real API call example:
-        // const res = await fetch(`${API_BASE}/posts/${id}`, { cache: "no-store" });
-        // if (!res.ok) throw new Error("Post not found");
-        // return await res.json();
-
-        const post = posts.find((p) => p.id === id);
-        if (!post) throw new Error("Post not found");
-        return post;
-    } finally {
-        stopLoader();
-    }
-}
+// Users
+export const getMe = (token: string) => request("GET", "/users/me", { token });
+export const getUserProfile = (id: string) => request("GET", `/users/${id}`);
+export const updateUser = (data: any, token: string) =>
+    request("PATCH", "/users/update", { body: data, token });
+export const deleteUser = (token: string) => request("DELETE", "/users/delete", { token });
+export const followUser = (id: string, token: string) =>
+    request("POST", `/users/follow/${id}`, { token });
+export const unfollowUser = (id: string, token: string) =>
+    request("POST", `/users/unfollow/${id}`, { token });
+export const getFollowers = (id: string) => request("GET", `/users/${id}/followers`);
+export const getFollowing = (id: string) => request("GET", `/users/${id}/following`);
+export const blockUser = (id: string, token: string) =>
+    request("POST", `/users/block/${id}`, { token });
+export const unblockUser = (id: string, token: string) =>
+    request("POST", `/users/unblock/${id}`, { token });
+export const searchUsers = (query: string) =>
+    request("GET", `/users/search`, { queryParams: { q: query } });

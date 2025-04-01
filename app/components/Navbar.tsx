@@ -19,6 +19,9 @@ export default function Navbar() {
                     <Link href="/explore" className="hover:underline">
                         Explore
                     </Link>
+                    <Link href="/register" className="hover:underline">
+                        Register
+                    </Link>
                 </div>
                 <div className="md:hidden">
                     <button
@@ -85,6 +88,9 @@ export default function Navbar() {
                     </Link>
                     <Link href="/explore" className="block hover:underline">
                         Explore
+                    </Link>
+                    <Link href="/register" className="block hover:underline">
+                        Register
                     </Link>
                     <button className="block hover:underline">Notifications</button>
                     {/* <div className="relative">
