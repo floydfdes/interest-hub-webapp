@@ -17,14 +17,13 @@ const request = async <T>(
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE",
     endpoint: string,
     options: {
-        token?: string;
         body?: any;
         queryParams?: Record<string, any>;
     } = {}
 ): Promise<T> => {
     startLoader();
     try {
-        const { token, body, queryParams } = options;
+        const { body, queryParams } = options;
         const url = new URL(`${API_BASE}${endpoint}`);
 
         if (queryParams) {
@@ -36,6 +35,10 @@ const request = async <T>(
         const headers: Record<string, string> = {
             "Content-Type": "application/json",
         };
+        headers["x-requested-with"] = "InterestHubFrontend";
+
+
+        const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
         if (token) headers["Authorization"] = `Bearer ${token}`;
 
         const res = await fetch(url.toString(), {
@@ -56,8 +59,8 @@ export const registerUser = (data: any) => request("POST", "/auth/register", { b
 export const loginUser = (data: any) => request("POST", "/auth/login", { body: data });
 export const refreshToken = () => request("POST", "/auth/refresh");
 export const logoutUser = () => request("POST", "/auth/logout");
-export const changePassword = (data: any, token: string) =>
-    request("PATCH", "/auth/change-password", { body: data, token });
+export const changePassword = (data: any) =>
+    request("PATCH", "/auth/change-password", { body: data });
 export const forgotPassword = (email: string) =>
     request("POST", "/auth/forgot-password", { body: { email } });
 export const resetPassword = (data: any) =>
@@ -66,28 +69,21 @@ export const resetPassword = (data: any) =>
 // Posts
 export const getAllPosts = () => request("GET", "/posts");
 export const getPostById = (id: string) => request("GET", `/posts/${id}`);
-export const createPost = (data: any, token: string) =>
-    request("POST", "/posts", { body: data, token });
-export const updatePost = (id: string, data: any, token: string) =>
-    request("PUT", `/posts/${id}`, { body: data, token });
-export const deletePost = (id: string, token: string) =>
-    request("DELETE", `/posts/${id}`, { token });
+export const createPost = (data: any) => request("POST", "/posts", { body: data });
+export const updatePost = (id: string, data: any) =>
+    request("PUT", `/posts/${id}`, { body: data });
+export const deletePost = (id: string) => request("DELETE", `/posts/${id}`);
 
 // Users
-export const getMe = (token: string) => request("GET", "/users/me", { token });
+export const getMe = () => request("GET", "/users/me");
 export const getUserProfile = (id: string) => request("GET", `/users/${id}`);
-export const updateUser = (data: any, token: string) =>
-    request("PATCH", "/users/update", { body: data, token });
-export const deleteUser = (token: string) => request("DELETE", "/users/delete", { token });
-export const followUser = (id: string, token: string) =>
-    request("POST", `/users/follow/${id}`, { token });
-export const unfollowUser = (id: string, token: string) =>
-    request("POST", `/users/unfollow/${id}`, { token });
+export const updateUser = (data: any) => request("PATCH", "/users/update", { body: data });
+export const deleteUser = () => request("DELETE", "/users/delete");
+export const followUser = (id: string) => request("POST", `/users/follow/${id}`);
+export const unfollowUser = (id: string) => request("POST", `/users/unfollow/${id}`);
 export const getFollowers = (id: string) => request("GET", `/users/${id}/followers`);
 export const getFollowing = (id: string) => request("GET", `/users/${id}/following`);
-export const blockUser = (id: string, token: string) =>
-    request("POST", `/users/block/${id}`, { token });
-export const unblockUser = (id: string, token: string) =>
-    request("POST", `/users/unblock/${id}`, { token });
+export const blockUser = (id: string) => request("POST", `/users/block/${id}`);
+export const unblockUser = (id: string) => request("POST", `/users/unblock/${id}`);
 export const searchUsers = (query: string) =>
     request("GET", `/users/search`, { queryParams: { q: query } });

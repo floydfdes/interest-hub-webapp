@@ -1,10 +1,20 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
+import Avatar from "react-avatar";
 import Link from "next/link";
-import { useState } from "react";
+import { getUserFromLocalStorage } from "../api/auth";
 
 export default function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [user, setUser] = useState<any>(null);
+
+    useEffect(() => {
+        const storedUser = getUserFromLocalStorage();
+        setUser(storedUser);
+    }, []);
 
     return (
         <nav className="bg-primary text-text-light p-4">
@@ -19,10 +29,29 @@ export default function Navbar() {
                     <Link href="/explore" className="hover:underline">
                         Explore
                     </Link>
-                    <Link href="/register" className="hover:underline">
-                        Register
-                    </Link>
+                    {!user && (
+                        <Link href="/login" className="hover:underline">
+                            Login
+                        </Link>
+                    )}
                 </div>
+                <div className="hidden md:flex items-center space-x-4">
+                    <button className="hover:underline">Notifications</button>
+                    {user && (
+                        <div className="flex items-center space-x-2">
+                            <Avatar
+                                name={user.name}
+                                src={user.profilePic || undefined}
+                                round
+                                size="35"
+                                textSizeRatio={2}
+                            />
+                            <span>{user.name}</span>
+                        </div>
+                    )}
+                </div>
+
+                {/* Mobile Menu Button */}
                 <div className="md:hidden">
                     <button
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -44,24 +73,8 @@ export default function Navbar() {
                         </svg>
                     </button>
                 </div>
-                <div className="hidden md:flex items-center space-x-4">
-                    <button className="hover:underline">Notifications</button>
-                    {/* <div className="relative">
-            <button className="hover:underline">Profile</button>
-            <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-2">
-              <Link href="/profile">
-                <a className="block px-4 py-2 hover:bg-gray-200">Profile</a>
-              </Link>
-              <Link href="/settings">
-                <a className="block px-4 py-2 hover:bg-gray-200">Settings</a>
-              </Link>
-              <button className="block w-full text-left px-4 py-2 hover:bg-gray-200">
-                Sign out
-              </button>
             </div>
-          </div> */}
-                </div>
-            </div>
+
             {isMobileMenuOpen && (
                 <div className="fixed inset-0 bg-primary bg-opacity-90 z-50 flex flex-col items-start p-4 space-y-4">
                     <button
@@ -89,24 +102,24 @@ export default function Navbar() {
                     <Link href="/explore" className="block hover:underline">
                         Explore
                     </Link>
-                    <Link href="/register" className="block hover:underline">
-                        Register
-                    </Link>
+                    {!user && (
+                        <Link href="/login" className="block hover:underline">
+                            Login
+                        </Link>
+                    )}
                     <button className="block hover:underline">Notifications</button>
-                    {/* <div className="relative">
-            <button className="block hover:underline">Profile</button>
-            <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-2">
-              <Link href="/profile">
-                <a className="block px-4 py-2 hover:bg-gray-200">Profile</a>
-              </Link>
-              <Link href="/settings">
-                <a className="block px-4 py-2 hover:bg-gray-200">Settings</a>
-              </Link>
-              <button className="block w-full text-left px-4 py-2 hover:bg-gray-200">
-                Sign out
-              </button>
-            </div>
-          </div> */}
+                    {user && (
+                        <div className="flex items-center space-x-2">
+                            <Avatar
+                                name={user.name}
+                                src={user.profilePic || undefined}
+                                round
+                                size="30"
+                                textSizeRatio={2}
+                            />
+                            <span>{user.name}</span>
+                        </div>
+                    )}
                 </div>
             )}
         </nav>

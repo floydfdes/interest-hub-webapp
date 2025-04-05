@@ -1,5 +1,6 @@
 "use client";
 
+import { IUser } from "../types/user";
 import { registerUser } from "../api/api";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -12,8 +13,9 @@ export default function RegisterPage() {
     const handleRegister = async () => {
         try {
             setError("");
-            const data = await registerUser(form) as { token: string };
+            const data = await registerUser(form) as { token: string, user: IUser };
             localStorage.setItem("token", data.token);
+            localStorage.setItem("user", JSON.stringify(data.user));
             router.push("/explore");
         } catch (err) {
             console.log(err);
@@ -64,6 +66,15 @@ export default function RegisterPage() {
                     >
                         Sign Up
                     </button>
+                    <div className="mt-4 text-center">
+                        <p className="text-sm">
+                            Already have an account?{" "}
+                            <a href="/login" className="text-primary font-medium hover:underline">
+                                Log in
+                            </a>
+                        </p>
+                    </div>
+
                 </div>
             </div>
         </div>

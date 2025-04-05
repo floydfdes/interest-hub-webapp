@@ -1,5 +1,6 @@
 "use client";
 
+import { IUser } from "../types/user";
 import { loginUser } from "../api/api";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -13,8 +14,10 @@ export default function LoginPage() {
     const handleLogin = async () => {
         try {
             setError("");
-            const data = await loginUser({ email, password }) as { token: string };
+            const data = await loginUser({ email, password }) as { token: string, user: IUser };
+            console.log(data);
             localStorage.setItem("token", data.token);
+            localStorage.setItem("user", JSON.stringify(data.user));
             router.push("/explore");
         } catch (err) {
             console.log(err);
@@ -58,6 +61,15 @@ export default function LoginPage() {
                     >
                         Log In
                     </button>
+                    <div className="mt-4 text-center">
+                        <p className="text-sm">
+                            Don&apos;t have an account?{" "}
+                            <a href="/register" className="text-primary font-medium hover:underline">
+                                Register
+                            </a>
+                        </p>
+                    </div>
+
                 </div>
             </div>
         </div>
