@@ -1,10 +1,29 @@
 // types/user.ts
 export interface IUser {
-    id: string;
+    _id: string;
     name: string;
     email: string;
+    role: "user" | "admin";
     profilePic: string;
+    bio: string;
+    interests: string[];
+    followers: string[];
+    following: string[];
+    otp: string | null;
+    otpExpires: string | null;
+    is2FAEnabled: boolean;
+    twoFASecret: string;
+    resetToken: string | null;
+    resetTokenExpiry: string | null;
+    isBlocked: boolean;
+    warnings: {
+        reason: string;
+        date: string;
+    }[];
+    createdAt: string;
+    updatedAt: string;
 }
+
 
 
 // Reusable preview type for users

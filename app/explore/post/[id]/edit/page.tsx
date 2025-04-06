@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import { compressAndConvertToBase64, resizeImageToBase64 } from "@/app/api/imageUtil";
 import { getPostById, updatePost } from "@/app/api/api";
 import { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
@@ -197,49 +198,4 @@ export default function EditPostPage() {
     );
 }
 
-// Universal compressor
-const compressAndConvertToBase64 = async (
-    input: File | string
-): Promise<string | null> => {
-    try {
-        let file: File;
-        if (typeof input === "string") {
-            const res = await fetch(input);
-            const blob = await res.blob();
-            file = new File([blob], "image.jpg", { type: blob.type });
-        } else {
-            file = input;
-        }
-        return await resizeImageToBase64(file, 400, 250);
-    } catch (err) {
-        console.error("Image conversion failed", err);
-        return null;
-    }
-};
 
-const resizeImageToBase64 = (
-    file: File,
-    maxWidth: number,
-    maxHeight: number
-): Promise<string | null> => {
-    return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            const img = new Image();
-            img.onload = () => {
-                const canvas = document.createElement("canvas");
-                canvas.width = maxWidth;
-                canvas.height = maxHeight;
-                const ctx = canvas.getContext("2d");
-                if (!ctx) return resolve(null);
-                ctx.drawImage(img, 0, 0, maxWidth, maxHeight);
-                const base64 = canvas.toDataURL("image/jpeg", 0.8);
-                resolve(base64);
-            };
-            if (event.target?.result) {
-                img.src = event.target.result as string;
-            }
-        };
-        reader.readAsDataURL(file);
-    });
-};
