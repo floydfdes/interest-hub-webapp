@@ -72,50 +72,48 @@ export default function Explore() {
     <div className="flex flex-col items-center min-h-screen bg-background p-8">
       <div className="w-full flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
         <div>
-          <h1 className="text-4xl font-bold text-primary">Explore</h1>
-          <p className="mt-2 text-lg text-text">
+          <h1 className="text-4xl font-semibold text-primary">Explore</h1>
+          <p className="mt-2 text-base text-gray-600">
             Discover new topics and interests
           </p>
         </div>
 
         <Link
           href="/create"
-          className="mt-4 md:mt-0 flex items-center gap-2 bg-primary text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition"
+          className="mt-4 md:mt-0 flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-md hover:bg-opacity-90 text-sm"
         >
-          <FiPlus size={18} />
+          <FiPlus size={16} />
           Create Post
         </Link>
       </div>
 
-      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl">
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl w-full">
         {posts.map((post: any) => (
           <Link
             key={post._id}
             href={`/explore/post/${post._id}`}
-            className="bg-white shadow-md rounded-lg overflow-hidden"
+            className="border border-gray-200 rounded-md bg-white hover:shadow-sm transition duration-200"
           >
             <Image
               src={post.images?.[0] || "/Placeholder.png"}
               alt={post.title}
               width={400}
               height={250}
-              className="w-full h-48 object-cover"
+              className="w-full h-48 object-cover border-b"
             />
             <div className="p-4">
-              <span className="text-sm text-secondary font-semibold">
+              <span className="text-xs text-secondary font-medium uppercase tracking-wide">
                 {post.category}
               </span>
-              <h2 className="text-xl font-semibold text-primary mt-1">
-                {post.title}
-              </h2>
-              <p className="mt-2 text-gray-600 line-clamp-3">{post.content}</p>
+              <h2 className="text-lg font-semibold text-primary mt-1">{post.title}</h2>
+              <p className="mt-2 text-sm text-gray-600 line-clamp-3">{post.content}</p>
 
               <div className="mt-4 flex items-center gap-2 text-sm text-gray-500">
                 <Image
                   src={post.author?.profilePic || "/DefaultAvatar.png"}
                   alt={post.author?.name || "User"}
-                  width={30}
-                  height={30}
+                  width={28}
+                  height={28}
                   className="rounded-full"
                 />
                 <span>{post.author?.name || "Unknown"}</span>
@@ -126,28 +124,26 @@ export default function Explore() {
                 </span>
               </div>
 
-              <div className="mt-2 flex justify-between text-gray-500 text-sm">
+              <div className="mt-3 flex justify-between text-gray-500 text-sm">
                 <div className="flex items-center gap-4">
                   <div className="flex items-center gap-1">
-                    <FiThumbsUp className="text-primary" size={16} />
-                    <span className="hidden sm:inline">Likes</span>
+                    <FiThumbsUp className="text-primary" size={14} />
                     <span>{post.likes?.length || 0}</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <FiMessageCircle className="text-primary" size={16} />
-                    <span className="hidden sm:inline">Comments</span>
+                    <FiMessageCircle className="text-primary" size={14} />
                     <span>{post.comments?.length || 0}</span>
                   </div>
                 </div>
 
                 {post.author?._id === currentUser?.id && (
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2">
                     <Link
                       href={`/explore/post/${post._id}/edit`}
                       onClick={(e) => e.stopPropagation()}
-                      className="text-primary hover:underline flex items-center gap-1"
+                      className="text-primary hover:underline text-xs flex items-center gap-1"
                     >
-                      <FiEdit size={16} />
+                      <FiEdit size={14} />
                       <span className="hidden sm:inline">Edit</span>
                     </Link>
                     <button
@@ -156,9 +152,9 @@ export default function Explore() {
                         e.stopPropagation();
                         handleDelete(post._id);
                       }}
-                      className="text-red-500 hover:underline flex items-center gap-1"
+                      className="text-red-500 hover:underline text-xs flex items-center gap-1"
                     >
-                      <FiTrash size={16} />
+                      <FiTrash size={14} />
                       <span className="hidden sm:inline">Delete</span>
                     </button>
                   </div>

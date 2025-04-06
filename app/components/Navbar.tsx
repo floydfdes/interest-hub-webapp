@@ -2,11 +2,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 import Avatar from "react-avatar";
 import Link from "next/link";
 import { getUserFromLocalStorage } from "../api/auth";
-import { useRouter } from "next/navigation";
 
 export default function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -14,13 +14,15 @@ export default function Navbar() {
     const [user, setUser] = useState<any>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const router = useRouter();
+    const pathname = usePathname();
 
+    // Sync user state with localStorage on route change
     useEffect(() => {
         const storedUser = getUserFromLocalStorage();
         setUser(storedUser);
-    }, []);
+    }, [pathname]);
 
-    // Close dropdown when clicking outside
+    // Close dropdown if clicked outside
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -28,15 +30,21 @@ export default function Navbar() {
             }
         }
         document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
+        return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
     const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
+        setUser(null);
+        setDropdownOpen(false);
+        setIsMobileMenuOpen(false);
         router.push("/login");
+    };
+
+    const handleMobileNav = (href: string) => {
+        setIsMobileMenuOpen(false);
+        router.push(href);
     };
 
     return (
@@ -49,6 +57,7 @@ export default function Navbar() {
                 <div className="hidden md:flex space-x-4">
                     <Link href="/" className="hover:underline">Home</Link>
                     <Link href="/explore" className="hover:underline">Explore</Link>
+                    <Link href="/users" className="hover:underline">Users</Link>
                     {!user && <Link href="/login" className="hover:underline">Login</Link>}
                 </div>
 
@@ -71,7 +80,13 @@ export default function Navbar() {
                             </button>
                             {dropdownOpen && (
                                 <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-md z-50">
-                                    <Link href="/profile" className="block px-4 py-2 hover:bg-gray-100">Profile</Link>
+                                    <Link
+                                        href="/profile"
+                                        className="block px-4 py-2 hover:bg-gray-100"
+                                        onClick={() => setDropdownOpen(false)}
+                                    >
+                                        Profile
+                                    </Link>
                                     <button
                                         onClick={handleLogout}
                                         className="block w-full text-left px-4 py-2 hover:bg-gray-100"
@@ -108,10 +123,10 @@ export default function Navbar() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
-                    <Link href="/" className="block hover:underline">Home</Link>
-                    <Link href="/explore" className="block hover:underline">Explore</Link>
-                    {!user && <Link href="/login" className="block hover:underline">Login</Link>}
-                    <button className="block hover:underline">Notifications</button>
+                    <button onClick={() => handleMobileNav("/")}>Home</button>
+                    <button onClick={() => handleMobileNav("/explore")}>Explore</button>
+                    <button onClick={() => handleMobileNav("/users")}>Users</button>
+                    {!user && <button onClick={() => handleMobileNav("/login")}>Login</button>}
                     {user && (
                         <div className="flex flex-col space-y-2">
                             <div className="flex items-center space-x-2">
@@ -124,8 +139,8 @@ export default function Navbar() {
                                 />
                                 <span>{user.name}</span>
                             </div>
-                            <Link href="/profile" className="text-white underline">Profile</Link>
-                            <button onClick={handleLogout} className="text-white underline">Logout</button>
+                            <button onClick={() => handleMobileNav("/profile")}>Profile</button>
+                            <button onClick={handleLogout}>Logout</button>
                         </div>
                     )}
                 </div>

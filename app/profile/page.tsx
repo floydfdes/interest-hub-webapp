@@ -1,5 +1,6 @@
 "use client";
 
+import { FiEdit, FiLogOut, FiSettings } from "react-icons/fi";
 import { useEffect, useState } from "react";
 
 import Avatar from "react-avatar";
@@ -21,16 +22,19 @@ export default function ProfilePage() {
                 const userData = await getMe() as { user: IUser };
                 setUser(userData.user);
             } catch (err: unknown) {
-                if (err instanceof Error) {
-                    setError(err.message);
-                } else {
-                    setError("Failed to fetch user");
-                }
+                setError(err instanceof Error ? err.message : "Failed to fetch user");
             }
         };
 
         fetchUser();
     }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        setUser(null);
+        router.push("/login");
+    };
 
     if (error) {
         return (
@@ -46,10 +50,9 @@ export default function ProfilePage() {
     }
 
     return (
-        <div className="min-h-screen bg-background flex justify-center items-center px-4 py-10">
-            <div className="w-full max-w-2xl bg-white shadow-xl rounded-lg p-8 text-center relative">
-
-                {/* Avatar */}
+        <div className="min-h-screen bg-background p-8 flex flex-col lg:flex-row gap-8 justify-center">
+            {/* Left Panel */}
+            <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-sm text-center">
                 <div className="flex justify-center mb-4">
                     <Avatar
                         name={user.name}
@@ -59,52 +62,94 @@ export default function ProfilePage() {
                         textSizeRatio={2}
                     />
                 </div>
+                <h2 className="text-xl font-bold text-primary mb-1">{user.name}</h2>
+                <p className="text-gray-500 mb-6">{user.email}</p>
 
-                {/* Name & Email */}
-                <h1 className="text-2xl font-bold text-primary mb-1">{user.name}</h1>
-                <p className="text-gray-500 mb-4">{user.email}</p>
+                <div className="space-y-3">
+                    <button
+                        onClick={() => router.push("/profile/edit")}
+                        className="w-full flex items-center justify-center gap-2 border border-gray-300 py-2 rounded-md hover:bg-gray-50"
+                    >
+                        <FiEdit size={16} />
+                        Edit Profile
+                    </button>
+                    <button
+                        onClick={() => router.push("/profile/settings")}
+                        className="w-full flex items-center justify-center gap-2 border border-gray-300 py-2 rounded-md hover:bg-gray-50"
+                    >
+                        <FiSettings size={16} />
+                        Settings
+                    </button>
+                    <button
+                        onClick={handleLogout}
+                        className="w-full flex items-center justify-center gap-2 border border-red-300 text-red-500 py-2 rounded-md hover:bg-red-50"
+                    >
+                        <FiLogOut size={16} />
+                        Logout
+                    </button>
+                </div>
+            </div>
 
-                {/* Bio */}
-                {user.bio && (
-                    <p className="mt-2 text-gray-700 italic max-w-lg mx-auto">{user.bio}</p>
-                )}
+            {/* Right Panel */}
+            <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-2xl">
+                <h2 className="text-2xl font-semibold text-primary mb-6">Profile Details</h2>
 
-                {/* Interests */}
-                {user.interests?.length > 0 && (
-                    <div className="mt-4">
-                        <h3 className="text-primary font-semibold mb-2">Interests</h3>
-                        <div className="flex flex-wrap justify-center gap-2">
-                            {user.interests.map((interest) => (
-                                <span
-                                    key={interest}
-                                    className="bg-secondary text-white text-sm px-3 py-1 rounded-full shadow-sm"
-                                >
-                                    {interest}
-                                </span>
-                            ))}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-base">
+                    {/* Name */}
+                    <div>
+                        <label className="text-gray-500 text-sm block mb-1">Name</label>
+                        <div className="bg-gray-100 p-3 rounded-md text-gray-800">{user.name}</div>
+                    </div>
+
+                    {/* Email */}
+                    <div>
+                        <label className="text-gray-500 text-sm block mb-1">Email</label>
+                        <div className="bg-gray-100 p-3 rounded-md text-gray-800">{user.email}</div>
+                    </div>
+
+                    {/* Bio */}
+                    {user.bio && (
+                        <div className="sm:col-span-2">
+                            <label className="text-gray-500 text-sm block mb-1">Bio</label>
+                            <div className="bg-gray-100 p-3 rounded-md text-gray-800 whitespace-pre-line">
+                                {user.bio}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Followers */}
+                    <div>
+                        <label className="text-gray-500 text-sm block mb-1">Followers</label>
+                        <div className="bg-gray-100 p-3 rounded-md text-gray-800">
+                            {user.followers?.length || 0}
                         </div>
                     </div>
-                )}
 
-                {/* Optional Stats */}
-                <div className="mt-6 flex justify-center gap-8 text-sm text-gray-600">
-                    <div className="text-center">
-                        <p className="font-semibold text-lg">{user.followers?.length || 0}</p>
-                        <p>Followers</p>
+                    {/* Following */}
+                    <div>
+                        <label className="text-gray-500 text-sm block mb-1">Following</label>
+                        <div className="bg-gray-100 p-3 rounded-md text-gray-800">
+                            {user.following?.length || 0}
+                        </div>
                     </div>
-                    <div className="text-center">
-                        <p className="font-semibold text-lg">{user.following?.length || 0}</p>
-                        <p>Following</p>
-                    </div>
+
+                    {/* Interests */}
+                    {user.interests?.length > 0 && (
+                        <div className="sm:col-span-2">
+                            <label className="text-gray-500 text-sm block mb-1">Interests</label>
+                            <div className="flex flex-wrap gap-2 mt-1">
+                                {user.interests.map((interest) => (
+                                    <span
+                                        key={interest}
+                                        className="bg-primary text-white text-sm px-3 py-1 rounded-full"
+                                    >
+                                        {interest}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
-
-                {/* Edit Button */}
-                <button
-                    onClick={() => router.push("/profile/edit")}
-                    className="mt-8 bg-primary text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition transform hover:scale-105"
-                >
-                    Edit Profile
-                </button>
             </div>
         </div>
     );
