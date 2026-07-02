@@ -5,6 +5,7 @@ import { notifyAuthChanged, useCurrentUser } from '@/app/hooks/useCurrentUser';
 import { useAdminAccess } from '@/app/hooks/useAdminAccess';
 import { setTheme, useTheme } from '@/app/hooks/useTheme';
 import { Avatar, Dropdown } from 'antd';
+import type { MenuProps } from 'antd';
 import { Bell, Bookmark, ChevronDown, Compass, LogIn, LogOut, Menu, Moon, PenLine, Search, Shield, Sun, UserRound } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -80,17 +81,40 @@ const Navbar = () => {
         },
     ];
 
-    const mobileNavMenu = visibleNavItems.map(({ href, label, icon: Icon }) => ({
+    const mobileNavMenu: MenuProps['items'] = [
+        ...visibleNavItems.map(({ href, label, icon: Icon }) => ({
         key: href,
         label: <Link href={href}>{label}</Link>,
         icon: <Icon size={15} />,
-    }));
+        })),
+        ...(user ? [
+            { type: 'divider' as const },
+            {
+                key: 'create-post',
+                label: <Link href="/create-post">Create post</Link>,
+                icon: <PenLine size={15} />,
+            },
+        ] : [
+            { type: 'divider' as const },
+            {
+                key: 'login',
+                label: <Link href="/login">Log in</Link>,
+                icon: <LogIn size={15} />,
+            },
+        ]),
+        {
+            key: 'toggle-theme',
+            label: theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode',
+            icon: theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />,
+            onClick: () => setTheme(theme === 'dark' ? 'light' : 'dark'),
+        },
+    ];
 
     return (
         <header className="sticky top-0 z-40 border-b border-slate-200/70 bg-white/78 backdrop-blur-xl">
             <div className="shell-container flex h-[4.5rem] items-center justify-between gap-4 px-4 sm:px-6">
-                <Link href="/" className="flex items-center gap-2.5">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-500 text-sm font-bold text-white shadow-lg shadow-indigo-200">
+                <Link href="/" className="flex min-w-0 items-center gap-2.5" aria-label="InterestHub home">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#1B325F] text-sm font-black tracking-tight text-white shadow-lg shadow-[#9CC4E4]/50 ring-1 ring-[#9CC4E4]/70">
                         IH
                     </span>
                     <div className="hidden sm:block">
@@ -118,7 +142,7 @@ const Navbar = () => {
                     })}
                 </nav>
 
-                <div className="flex items-center gap-2">
+                <div className="flex shrink-0 items-center gap-2">
                     <Dropdown menu={{ items: mobileNavMenu }} placement="bottomRight" trigger={['click']}>
                         <button
                             type="button"
@@ -132,13 +156,13 @@ const Navbar = () => {
                         type="button"
                         aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
                         onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                        className="theme-toggle"
+                        className="theme-toggle !hidden sm:!inline-flex"
                     >
                         {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
                     </button>
                     {user ? (
                         <>
-                            <Link href="/create-post" className="primary-button hidden sm:inline-flex">
+                            <Link href="/create-post" className="primary-button !hidden sm:!inline-flex">
                                 <PenLine size={15} />
                                 Post
                             </Link>
@@ -164,7 +188,7 @@ const Navbar = () => {
                         </>
                     ) : (
                         <>
-                            <Link href="/login" className="secondary-button hidden sm:inline-flex">
+                            <Link href="/login" className="secondary-button !hidden sm:!inline-flex">
                                 <LogIn size={15} />
                                 Log in
                             </Link>

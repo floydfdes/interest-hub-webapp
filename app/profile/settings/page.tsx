@@ -203,9 +203,9 @@ export default function SettingsPage() {
         if (!modal) return null;
 
         return (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/25 p-4 backdrop-blur-sm">
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/25 p-4 backdrop-blur-sm" role="dialog" aria-modal="true">
 
-                <div className="surface relative w-full max-w-md p-6">
+                <div className="surface relative max-h-[calc(100vh-2rem)] w-full max-w-md overflow-y-auto p-6">
                     <h2 className="mb-5 text-xl font-semibold capitalize text-slate-900">
                         {modal === "delete" ? "Delete Account" : modal === "deactivate" ? "Deactivate Account" : modal + " Password"}
                     </h2>
@@ -350,106 +350,52 @@ export default function SettingsPage() {
                     </div>
                 )}
 
-                <div className="flex flex-col space-y-3">
-                    <Link
-                        href="/profile/follow-requests"
-                        className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700"
-                    >
-                        Follow Requests
-                    </Link>
-                    <Link
-                        href="/profile/activities"
-                        className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700"
-                    >
-                        Activity History
-                    </Link>
-                    <Link
-                        href="/profile/reports"
-                        className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700"
-                    >
-                        My Reports
-                    </Link>
-                    <Link
-                        href="/profile/shares"
-                        className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700"
-                    >
-                        Shares
-                    </Link>
-                    <Link
-                        href="/profile/blocked"
-                        className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700"
-                    >
-                        Blocked Users
-                    </Link>
-                    <Link
-                        href="/profile/muted"
-                        className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700"
-                    >
-                        Muted Users
-                    </Link>
-                    <Link
-                        href="/profile/hidden-posts"
-                        className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700"
-                    >
-                        Hidden Posts
-                    </Link>
-                    <Link
-                        href="/profile/recently-viewed"
-                        className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700"
-                    >
-                        Recently Viewed
-                    </Link>
-                    <Link
-                        href="/profile/drafts"
-                        className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700"
-                    >
-                        Draft Posts
-                    </Link>
-                    <Link
-                        href="/profile/review-posts"
-                        className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700"
-                    >
-                        Under Review
-                    </Link>
-                    <Link
-                        href="/profile/archived-posts"
-                        className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700"
-                    >
-                        Archived Posts
-                    </Link>
-                    <button
-                        onClick={() => setModal("change")}
-                        className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700"
-                    >
-                        Change Password
-                    </button>
-                    <button
-                        onClick={() => setModal("forgot")}
-                        className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700"
-                    >
-                        Forgot Password
-                    </button>
-                    <button
-                        onClick={() => setModal("reset")}
-                        className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700"
-                    >
-                        Reset Password (with token)
-                    </button>
+                <div className="space-y-5">
+                    <section>
+                        <h2 className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-slate-400">Privacy & safety</h2>
+                        <div className="grid gap-3 sm:grid-cols-2">
+                            <Link href="/profile/follow-requests" className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700">Follow Requests</Link>
+                            <Link href="/profile/blocked" className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700">Blocked Users</Link>
+                            <Link href="/profile/muted" className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700">Muted Users</Link>
+                            <Link href="/profile/hidden-posts" className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700">Hidden Posts</Link>
+                        </div>
+                    </section>
 
-                    <hr className="my-4" />
+                    <section>
+                        <h2 className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-slate-400">Content & history</h2>
+                        <div className="grid gap-3 sm:grid-cols-2">
+                            <Link href="/profile/drafts" className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700">Draft Posts</Link>
+                            <Link href="/profile/review-posts" className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700">Under Review</Link>
+                            <Link href="/profile/archived-posts" className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700">Archived Posts</Link>
+                            <Link href="/profile/recently-viewed" className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700">Recently Viewed</Link>
+                        </div>
+                    </section>
 
-                    <button
-                        onClick={() => setModal("deactivate")}
-                        className="rounded-xl bg-amber-50 px-5 py-4 text-left font-medium text-amber-700 transition hover:bg-amber-100"
-                    >
-                        Deactivate Account
-                    </button>
-                    <button
-                        onClick={() => setModal("delete")}
-                        className="rounded-xl bg-rose-50 px-5 py-4 text-left font-medium text-rose-600 transition hover:bg-rose-100"
-                    >
-                        Delete Account
-                    </button>
+                    <section>
+                        <h2 className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-slate-400">Activity</h2>
+                        <div className="grid gap-3 sm:grid-cols-2">
+                            <Link href="/profile/activities" className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700">Activity History</Link>
+                            <Link href="/profile/reports" className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700">My Reports</Link>
+                            <Link href="/profile/shares" className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700">Shares</Link>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2 className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-slate-400">Account access</h2>
+                        <div className="grid gap-3 sm:grid-cols-2">
+                            <button onClick={() => setModal("change")} className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700">Change Password</button>
+                            <button onClick={() => setModal("forgot")} className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700">Forgot Password</button>
+                            <button onClick={() => setModal("reset")} className="rounded-xl bg-slate-50 px-5 py-4 text-left font-medium text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700 sm:col-span-2">Reset Password (with token)</button>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2 className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-slate-400">Danger zone</h2>
+                        <div className="grid gap-3 sm:grid-cols-2">
+                            <button onClick={() => setModal("deactivate")} className="rounded-xl bg-amber-50 px-5 py-4 text-left font-medium text-amber-700 transition hover:bg-amber-100">Deactivate Account</button>
+                            <button onClick={() => setModal("delete")} className="rounded-xl bg-rose-50 px-5 py-4 text-left font-medium text-rose-600 transition hover:bg-rose-100">Delete Account</button>
+                        </div>
+                    </section>
                 </div>
             </div>
 

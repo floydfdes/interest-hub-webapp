@@ -188,26 +188,26 @@ function UserSearchContent() {
                 <p className="mt-2 text-slate-500">Discover creators through the interests you share.</p>
             </header>
 
-            <form onSubmit={submitSearch} className="surface mb-7 flex w-full flex-wrap gap-3 p-4">
+            <form onSubmit={submitSearch} className="surface mb-7 flex w-full flex-col gap-3 p-4 sm:flex-row sm:flex-wrap">
                 <input
                     data-testid="users-search-input"
                     type="text"
                     placeholder="Search by name or interest..."
-                    className="soft-input min-w-[15rem] flex-grow px-4 text-sm outline-none"
+                    className="soft-input min-w-0 flex-grow px-4 text-sm outline-none sm:min-w-[15rem]"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                 />
                 <button
                     type="submit"
                     data-testid="users-search-button"
-                    className="primary-button"
+                    className="primary-button w-full sm:w-auto"
                 >
                     <Search size={15} /> Search
                 </button>
                 <select
                     value={selectedInterest}
                     onChange={(e) => setSelectedInterest(e.target.value)}
-                    className="soft-input px-4 text-sm text-slate-600 outline-none"
+                    className="soft-input w-full px-4 text-sm text-slate-600 outline-none sm:w-auto"
                 >
                     {uniqueInterests.map((interest) => (
                         <option key={interest}>{interest}</option>
@@ -216,7 +216,7 @@ function UserSearchContent() {
                 <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="soft-input px-4 text-sm text-slate-600 outline-none"
+                    className="soft-input w-full px-4 text-sm text-slate-600 outline-none sm:w-auto"
                 >
                     <option value="name">Sort by Name</option>
                     <option value="followers">Sort by Followers</option>
@@ -226,6 +226,12 @@ function UserSearchContent() {
             {error && <p role="alert" className="surface mb-4 p-3 text-sm font-medium text-rose-600">{error}</p>}
 
             {/* Results */}
+            {filteredResults.length === 0 && !error && (
+                <div className="surface px-6 py-14 text-center text-sm text-slate-500">
+                    No people found. Try a different name, username, or interest.
+                </div>
+            )}
+
             <div className="grid w-full gap-4 lg:grid-cols-2">
                 {filteredResults.map((user) => {
                     const isFollowing = followingIds.includes(user._id);
@@ -236,9 +242,9 @@ function UserSearchContent() {
                     return (
                         <div
                             key={user._id}
-                            className="surface flex items-center justify-between gap-4 px-5 py-5"
+                            className="surface flex flex-col gap-4 px-5 py-5 sm:flex-row sm:items-center sm:justify-between"
                         >
-                            <div className="flex items-start sm:items-center gap-4 w-full">
+                            <div className="flex w-full items-start gap-4 sm:items-center">
                                 <Avatar
                                     name={user.name}
                                     src={user.profilePic || undefined}
@@ -271,13 +277,13 @@ function UserSearchContent() {
                             {!isCurrentUser && (
                                 <div
                                     ref={actionMenuUserId === user._id ? actionMenuRef : undefined}
-                                    className="relative ml-4 flex shrink-0 items-start gap-2"
+                                    className="relative flex w-full shrink-0 items-start justify-end gap-2 sm:ml-4 sm:w-auto"
                                 >
                                     {!isBlocked && (
                                         <button
                                             onClick={() => handleFollowToggle(user._id, isFollowing)}
                                             disabled={isRequested}
-                                            className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${isFollowing
+                                            className={`min-h-11 rounded-xl px-4 py-2 text-sm font-semibold transition ${isFollowing
                                                 ? "bg-slate-100 text-slate-600 hover:bg-rose-50 hover:text-rose-600"
                                                 : isRequested
                                                     ? "bg-slate-100 text-slate-500"
@@ -292,12 +298,12 @@ function UserSearchContent() {
                                         aria-label={`More actions for ${user.name}`}
                                         aria-expanded={actionMenuUserId === user._id}
                                         onClick={() => setActionMenuUserId((openId) => openId === user._id ? null : user._id)}
-                                        className="rounded-xl border border-slate-200 bg-white p-2.5 text-slate-500 transition hover:bg-slate-50 hover:text-slate-700"
+                                        className="min-h-11 rounded-xl border border-slate-200 bg-white p-2.5 text-slate-500 transition hover:bg-slate-50 hover:text-slate-700"
                                     >
                                         <MoreHorizontal size={18} />
                                     </button>
                                     {actionMenuUserId === user._id && (
-                                        <div className="absolute right-0 top-12 z-10 min-w-36 rounded-xl border border-slate-100 bg-white p-1.5 shadow-lg">
+                                        <div className="absolute right-0 top-12 z-20 min-w-40 rounded-xl border border-slate-100 bg-white p-1.5 shadow-lg">
                                             <button
                                                 type="button"
                                                 onClick={() => void handleMuteToggle(user, isMuted)}

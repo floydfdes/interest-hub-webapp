@@ -250,7 +250,7 @@ export default function SavedPostsPage() {
                 <SavedPostGrid posts={posts} emptyDescription="No saved posts yet." />
             ) : (
                 <div className="grid items-start gap-6 lg:grid-cols-[20rem_minmax(0,1fr)]">
-                    <aside className="space-y-4">
+                    <aside className="space-y-4 lg:sticky lg:top-24">
                         <div className="surface p-4">
                             <label className="text-sm font-semibold text-slate-800" htmlFor="collection-name">New collection</label>
                             <div className="mt-3 flex items-center gap-2">
@@ -260,6 +260,11 @@ export default function SavedPostsPage() {
                         </div>
 
                         <div className="space-y-2">
+                            {collections.length === 0 && (
+                                <div className="surface px-5 py-8 text-center text-sm text-slate-500">
+                                    No collections yet. Create one above to group saved posts by topic.
+                                </div>
+                            )}
                             {collections.map((collection) => (
                                 <div key={collection._id} className={`surface p-3 transition ${activeCollection?._id === collection._id ? 'bg-[#E9F2F9] ring-2 ring-[#9CC4E4]' : ''}`}>
                                     {editingCollectionId === collection._id ? (

@@ -107,7 +107,7 @@ const PostCard = ({ post, onDelete, currentUser, isBookmarked, onBookmarkChange,
     };
 
     return (
-        <article className="surface overflow-hidden p-5 transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_48px_-26px_rgba(15,23,42,0.28)] sm:p-6">
+        <article className="surface overflow-visible p-5 transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_48px_-26px_rgba(15,23,42,0.28)] sm:p-6">
             <header className="flex items-start justify-between gap-4">
                 <div className="flex items-center gap-3">
                     <Avatar
@@ -150,8 +150,8 @@ const PostCard = ({ post, onDelete, currentUser, isBookmarked, onBookmarkChange,
                 </div>
             </Link>
 
-            <footer className="mt-5 flex items-center justify-between border-t border-slate-100 pt-4">
-                <div className="flex items-center gap-2">
+            <footer className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-4">
+                <div className="flex min-w-0 flex-wrap items-center gap-2">
                     <Button
                         type="text"
                         icon={isLiked ? <LikeFilled /> : <LikeOutlined />}
@@ -184,7 +184,7 @@ const PostCard = ({ post, onDelete, currentUser, isBookmarked, onBookmarkChange,
                             className="!rounded-xl !text-slate-500"
                         />
                         {actionsOpen && (
-                            <div className="absolute bottom-11 right-0 z-10 min-w-32 rounded-xl border border-slate-100 bg-white p-1.5 shadow-lg">
+                            <div className="absolute bottom-11 right-0 z-30 min-w-44 rounded-xl border border-slate-100 bg-white p-1.5 shadow-lg">
                                 {isOwner ? (
                                     <>
                                         <button

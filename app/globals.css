@@ -59,6 +59,16 @@ a {
   text-decoration: none;
 }
 
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[role="button"]:focus-visible {
+  outline: 3px solid rgba(242, 108, 79, 0.55);
+  outline-offset: 3px;
+}
+
 
 ::selection {
   color: white;
