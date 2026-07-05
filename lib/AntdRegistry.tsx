@@ -19,12 +19,12 @@ const StyledComponentsRegistry = ({ children }: React.PropsWithChildren) => {
                 theme={{
                     algorithm: theme === 'dark' ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
                     token: {
-                        colorPrimary: '#4f46e5',
-                        colorInfo: '#4f46e5',
-                        colorText: theme === 'dark' ? '#e5e7eb' : '#101828',
-                        colorTextSecondary: theme === 'dark' ? '#94a3b8' : '#667085',
-                        colorBgContainer: theme === 'dark' ? '#151d30' : '#ffffff',
-                        colorBorder: theme === 'dark' ? '#2b3850' : '#e4e7ec',
+                        colorPrimary: '#00AA6B',
+                        colorInfo: '#00AA6B',
+                        colorText: theme === 'dark' ? '#EFFAF3' : '#082B27',
+                        colorTextSecondary: theme === 'dark' ? '#A7B9B3' : '#5f756f',
+                        colorBgContainer: theme === 'dark' ? '#082B27' : '#F7F7F2',
+                        colorBorder: theme === 'dark' ? '#164A42' : '#cfe8d8',
                         borderRadius: 12,
                         borderRadiusLG: 18,
                         controlHeightLG: 48,

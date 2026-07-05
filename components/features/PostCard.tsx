@@ -120,7 +120,7 @@ const PostCard = ({ post, onDelete, currentUser, isBookmarked, onBookmarkChange,
                         <div className="flex flex-wrap items-center gap-2">
                             <p className="font-semibold text-slate-900">{post.author?.name || 'Unknown User'}</p>
                             {pinned && (
-                                <span className="inline-flex items-center gap-1 rounded-full bg-[#E9F2F9] px-2 py-0.5 text-[0.68rem] font-semibold text-[#1B325F]">
+                                <span className="inline-flex items-center gap-1 rounded-full bg-[#F7F7F2] px-2 py-0.5 text-[0.68rem] font-semibold text-[#0A504A]">
                                     <Pin size={11} /> Pinned
                                 </span>
                             )}

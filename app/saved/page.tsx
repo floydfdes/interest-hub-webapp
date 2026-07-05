@@ -240,8 +240,8 @@ export default function SavedPostsPage() {
             {error && <p className="surface mb-5 p-4 text-sm font-medium text-rose-600">{error}</p>}
 
             <div className="surface mb-6 flex gap-2 p-1.5">
-                <button type="button" onClick={() => setTab('all')} aria-pressed={tab === 'all'} className={`flex-1 rounded-xl px-4 py-2 text-sm font-semibold transition ${tab === 'all' ? 'bg-[#E9F2F9] text-[#1B325F]' : 'text-slate-500 hover:bg-slate-50'}`}>All saved</button>
-                <button type="button" onClick={() => setTab('collections')} aria-pressed={tab === 'collections'} className={`flex-1 rounded-xl px-4 py-2 text-sm font-semibold transition ${tab === 'collections' ? 'bg-[#E9F2F9] text-[#1B325F]' : 'text-slate-500 hover:bg-slate-50'}`}>Collections</button>
+                <button type="button" onClick={() => setTab('all')} aria-pressed={tab === 'all'} className={`flex-1 rounded-xl px-4 py-2 text-sm font-semibold transition ${tab === 'all' ? 'bg-[#F7F7F2] text-[#0A504A]' : 'text-slate-500 hover:bg-slate-50'}`}>All saved</button>
+                <button type="button" onClick={() => setTab('collections')} aria-pressed={tab === 'collections'} className={`flex-1 rounded-xl px-4 py-2 text-sm font-semibold transition ${tab === 'collections' ? 'bg-[#F7F7F2] text-[#0A504A]' : 'text-slate-500 hover:bg-slate-50'}`}>Collections</button>
             </div>
 
             {loading ? (
@@ -266,7 +266,7 @@ export default function SavedPostsPage() {
                                 </div>
                             )}
                             {collections.map((collection) => (
-                                <div key={collection._id} className={`surface p-3 transition ${activeCollection?._id === collection._id ? 'bg-[#E9F2F9] ring-2 ring-[#9CC4E4]' : ''}`}>
+                                <div key={collection._id} className={`surface p-3 transition ${activeCollection?._id === collection._id ? 'bg-[#F7F7F2] ring-2 ring-[#A2E6B8]' : ''}`}>
                                     {editingCollectionId === collection._id ? (
                                         <div className="flex items-center gap-2">
                                             <input value={editingName} onChange={(event) => setEditingName(event.target.value)} className="soft-input h-10 min-w-0 flex-1 px-3 text-sm outline-none" />
@@ -275,7 +275,7 @@ export default function SavedPostsPage() {
                                     ) : (
                                         <div className="flex items-center gap-3">
                                             <button type="button" onClick={() => void openCollection(collection)} className="flex min-w-0 flex-1 items-center gap-3 text-left">
-                                                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white text-[#1B325F] shadow-sm">
+                                                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white text-[#0A504A] shadow-sm">
                                                     <Folder size={17} />
                                                 </span>
                                                 <span className="min-w-0">

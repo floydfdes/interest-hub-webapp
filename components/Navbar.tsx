@@ -4,6 +4,7 @@ import { getUnreadNotificationCount } from '@/app/api/api';
 import { notifyAuthChanged, useCurrentUser } from '@/app/hooks/useCurrentUser';
 import { useAdminAccess } from '@/app/hooks/useAdminAccess';
 import { setTheme, useTheme } from '@/app/hooks/useTheme';
+import BrandMark from '@/components/BrandMark';
 import { Avatar, Dropdown } from 'antd';
 import type { MenuProps } from 'antd';
 import { Bell, Bookmark, ChevronDown, Compass, LogIn, LogOut, Menu, Moon, PenLine, Search, Shield, Sun, UserRound } from 'lucide-react';
@@ -111,19 +112,19 @@ const Navbar = () => {
     ];
 
     return (
-        <header className="sticky top-0 z-40 border-b border-slate-200/70 bg-white/78 backdrop-blur-xl">
+        <header className="sticky top-0 z-40 border-b border-[#cfe8d8]/80 bg-[#F7F7F2]/82 backdrop-blur-xl">
             <div className="shell-container flex h-[4.5rem] items-center justify-between gap-4 px-4 sm:px-6">
-                <Link href="/" className="flex min-w-0 items-center gap-2.5" aria-label="InterestHub home">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#1B325F] text-sm font-black tracking-tight text-white shadow-lg shadow-[#9CC4E4]/50 ring-1 ring-[#9CC4E4]/70">
-                        IH
+                <Link href="/" className="flex min-w-0 shrink-0 items-center gap-2.5" aria-label="InterestHub home">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white shadow-lg shadow-[#A2E6B8]/45 ring-1 ring-[#A2E6B8]/80">
+                        <BrandMark size={38} />
                     </span>
-                    <div className="hidden sm:block">
+                    <div className="hidden xl:block">
                         <p className="text-[1.05rem] font-bold leading-none tracking-tight text-slate-900">InterestHub</p>
                         <p className="mt-1 text-[0.68rem] font-medium uppercase tracking-[0.18em] text-slate-400">Discover more</p>
                     </div>
                 </Link>
 
-                <nav className="hidden items-center gap-1 rounded-2xl border border-slate-200/80 bg-slate-50/90 p-1 md:flex">
+                <nav className="hidden min-w-0 items-center gap-1 rounded-2xl border border-[#cfe8d8]/85 bg-white/70 p-1 md:flex">
                     {visibleNavItems.map(({ href, label, icon: Icon }) => {
                         const selected = pathname === href || (href !== '/' && pathname.startsWith(href));
                         return (
@@ -131,7 +132,7 @@ const Navbar = () => {
                                 key={href}
                                 href={href}
                                 className={`flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium transition sm:px-4 ${selected
-                                        ? 'bg-white text-indigo-600 shadow-sm'
+                                        ? 'bg-[#F7F7F2] text-[#0A504A] shadow-sm'
                                         : 'text-slate-500 hover:text-slate-900'
                                     }`}
                             >
@@ -143,15 +144,6 @@ const Navbar = () => {
                 </nav>
 
                 <div className="flex shrink-0 items-center gap-2">
-                    <Dropdown menu={{ items: mobileNavMenu }} placement="bottomRight" trigger={['click']}>
-                        <button
-                            type="button"
-                            aria-label="Open navigation menu"
-                            className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 transition hover:border-indigo-200 hover:text-indigo-600 md:hidden"
-                        >
-                            <Menu size={18} />
-                        </button>
-                    </Dropdown>
                     <button
                         type="button"
                         aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
@@ -169,17 +161,17 @@ const Navbar = () => {
                             <Link
                                 href="/notifications"
                                 aria-label={unreadNotifications > 0 ? `${unreadNotifications} unread notifications` : 'Notifications'}
-                                className="relative flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 transition hover:border-indigo-200 hover:text-indigo-600"
+                                className="relative flex h-11 w-11 items-center justify-center rounded-xl border border-[#cfe8d8] bg-white text-slate-600 transition hover:border-[#A2E6B8] hover:text-[#0A504A]"
                             >
                                 <Bell size={18} />
                                 {unreadNotifications > 0 && (
-                                    <span className="absolute -right-1 -top-1 min-w-5 rounded-full bg-rose-500 px-1.5 py-0.5 text-center text-[0.68rem] font-bold leading-none text-white">
+                                    <span className="absolute -right-1 -top-1 min-w-5 rounded-full bg-[#00AA6B] px-1.5 py-0.5 text-center text-[0.68rem] font-bold leading-none text-white">
                                         {unreadNotifications > 99 ? '99+' : unreadNotifications}
                                     </span>
                                 )}
                             </Link>
                             <Dropdown menu={{ items: userMenu }} placement="bottomRight" trigger={['click']}>
-                                <button className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white p-1.5 pr-2 text-sm font-medium text-slate-700 transition hover:border-indigo-200">
+                                <button className="flex items-center gap-2 rounded-xl border border-[#cfe8d8] bg-white p-1.5 pr-2 text-sm font-medium text-slate-700 transition hover:border-[#A2E6B8]">
                                     <Avatar src={user.profilePic || null} size={32}>{user.name.charAt(0)}</Avatar>
                                     <span className="hidden lg:inline">{user.name}</span>
                                     <ChevronDown className="hidden text-slate-400 lg:block" size={14} />
@@ -197,6 +189,15 @@ const Navbar = () => {
                             </Link>
                         </>
                     )}
+                    <Dropdown menu={{ items: mobileNavMenu }} placement="bottomRight" trigger={['click']}>
+                        <button
+                            type="button"
+                            aria-label="Open navigation menu"
+                            className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#cfe8d8] bg-white text-slate-600 transition hover:border-[#A2E6B8] hover:text-[#0A504A] md:hidden"
+                        >
+                            <Menu size={18} />
+                        </button>
+                    </Dropdown>
                 </div>
             </div>
         </header>

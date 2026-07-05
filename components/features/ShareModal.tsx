@@ -89,7 +89,7 @@ export default function ShareModal({ targetType, targetId, targetLabel, currentU
                             onClick={() => setRecipient(user)}
                             className={`flex w-full items-center gap-3 rounded-xl border px-3 py-2 text-left transition ${
                                 recipient?._id === user._id
-                                    ? 'border-[#9CC4E4] bg-[#E9F2F9]'
+                                    ? 'border-[#A2E6B8] bg-[#F7F7F2]'
                                     : 'border-slate-100 bg-white hover:bg-slate-50'
                             }`}
                         >

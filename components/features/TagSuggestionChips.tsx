@@ -47,7 +47,7 @@ export default function TagSuggestionChips({ value, onSelect }: TagSuggestionChi
                     key={suggestion.tag}
                     type="button"
                     onClick={() => onSelect(suggestion.tag)}
-                    className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-600 transition hover:border-[#9CC4E4] hover:bg-[#E9F2F9] hover:text-[#1B325F]"
+                    className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-600 transition hover:border-[#A2E6B8] hover:bg-[#F7F7F2] hover:text-[#0A504A]"
                 >
                     #{suggestion.tag}
                     <span className="ml-1 font-medium text-slate-400">{suggestion.postsCount}</span>

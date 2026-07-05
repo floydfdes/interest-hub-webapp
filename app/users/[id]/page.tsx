@@ -270,7 +270,7 @@ export default function PublicProfilePage() {
                                             className="object-cover transition duration-300 group-hover:scale-105"
                                         />
                                         <div className="absolute inset-x-0 top-0 bg-gradient-to-b from-slate-950/70 to-transparent p-3 text-white opacity-0 transition group-hover:opacity-100">
-                                            {post.isPinned && <span className="mb-2 inline-flex items-center gap-1 rounded-full bg-white/90 px-2 py-1 text-[0.68rem] font-semibold text-[#1B325F]"><Pin size={11} /> Pinned</span>}
+                                            {post.isPinned && <span className="mb-2 inline-flex items-center gap-1 rounded-full bg-white/90 px-2 py-1 text-[0.68rem] font-semibold text-[#0A504A]"><Pin size={11} /> Pinned</span>}
                                             <p className="truncate text-sm font-semibold">{post.title}</p>
                                         </div>
                                         <div className="absolute inset-x-0 bottom-0 flex items-center gap-3 bg-gradient-to-t from-slate-950/75 to-transparent p-3 text-xs font-semibold text-white opacity-0 transition group-hover:opacity-100">

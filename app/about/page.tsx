@@ -74,13 +74,13 @@ export default function About() {
             </div>
           </div>
 
-          <div className="rounded-[1.5rem] border border-[#D6E8F5] bg-[#F8FBFD] p-5">
-            <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#1B325F]">What it helps you do</p>
+          <div className="rounded-[1.5rem] border border-[#cfe8d8] bg-[#F7F7F2] p-5">
+            <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#0A504A]">What it helps you do</p>
             <div className="mt-5 space-y-4 text-sm text-slate-600">
-              <p className="flex gap-3"><Search className="mt-0.5 shrink-0 text-[#1B325F]" size={18} /> Search across people, posts, and tags.</p>
-              <p className="flex gap-3"><MessageCircle className="mt-0.5 shrink-0 text-[#1B325F]" size={18} /> Discuss interests through comments and replies.</p>
-              <p className="flex gap-3"><Bell className="mt-0.5 shrink-0 text-[#1B325F]" size={18} /> Get updates about meaningful activity.</p>
-              <p className="flex gap-3"><LockKeyhole className="mt-0.5 shrink-0 text-[#1B325F]" size={18} /> Control your visibility and interactions.</p>
+              <p className="flex gap-3"><Search className="mt-0.5 shrink-0 text-[#0A504A]" size={18} /> Search across people, posts, and tags.</p>
+              <p className="flex gap-3"><MessageCircle className="mt-0.5 shrink-0 text-[#0A504A]" size={18} /> Discuss interests through comments and replies.</p>
+              <p className="flex gap-3"><Bell className="mt-0.5 shrink-0 text-[#0A504A]" size={18} /> Get updates about meaningful activity.</p>
+              <p className="flex gap-3"><LockKeyhole className="mt-0.5 shrink-0 text-[#0A504A]" size={18} /> Control your visibility and interactions.</p>
             </div>
           </div>
         </div>
@@ -89,7 +89,7 @@ export default function About() {
       <section className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {productPillars.map(({ title, description, icon: Icon }) => (
           <article key={title} className="surface p-5">
-            <span className="grid h-11 w-11 place-items-center rounded-2xl bg-[#E9F2F9] text-[#1B325F]">
+            <span className="grid h-11 w-11 place-items-center rounded-2xl bg-[#F7F7F2] text-[#0A504A]">
               <Icon size={19} />
             </span>
             <h2 className="mt-5 text-lg font-bold text-slate-900">{title}</h2>
@@ -103,8 +103,8 @@ export default function About() {
         <h2 className="gradient-heading mt-4 text-3xl font-bold">What InterestHub includes</h2>
         <div className="mt-6 grid gap-5 sm:grid-cols-2">
           {featureGroups.map((group) => (
-            <article key={group.title} className="rounded-2xl border border-[#D6E8F5] bg-white p-5">
-              <h3 className="font-bold text-[#1B325F]">{group.title}</h3>
+            <article key={group.title} className="rounded-2xl border border-[#cfe8d8] bg-white p-5">
+              <h3 className="font-bold text-[#0A504A]">{group.title}</h3>
               <ul className="mt-4 grid gap-2 text-sm leading-6 text-slate-600">
                 {group.items.map((item) => <li key={item}>- {item}</li>)}
               </ul>

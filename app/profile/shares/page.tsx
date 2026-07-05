@@ -93,7 +93,7 @@ export default function ProfileSharesPage() {
                     type="button"
                     onClick={() => setTab('received')}
                     aria-pressed={tab === 'received'}
-                    className={`flex-1 rounded-xl px-4 py-2 text-sm font-semibold transition ${tab === 'received' ? 'bg-[#E9F2F9] text-[#1B325F]' : 'text-slate-500 hover:bg-slate-50'}`}
+                    className={`flex-1 rounded-xl px-4 py-2 text-sm font-semibold transition ${tab === 'received' ? 'bg-[#F7F7F2] text-[#0A504A]' : 'text-slate-500 hover:bg-slate-50'}`}
                 >
                     Received
                 </button>
@@ -101,7 +101,7 @@ export default function ProfileSharesPage() {
                     type="button"
                     onClick={() => setTab('sent')}
                     aria-pressed={tab === 'sent'}
-                    className={`flex-1 rounded-xl px-4 py-2 text-sm font-semibold transition ${tab === 'sent' ? 'bg-[#E9F2F9] text-[#1B325F]' : 'text-slate-500 hover:bg-slate-50'}`}
+                    className={`flex-1 rounded-xl px-4 py-2 text-sm font-semibold transition ${tab === 'sent' ? 'bg-[#F7F7F2] text-[#0A504A]' : 'text-slate-500 hover:bg-slate-50'}`}
                 >
                     Sent
                 </button>

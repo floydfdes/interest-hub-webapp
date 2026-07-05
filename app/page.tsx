@@ -12,65 +12,61 @@ export default function Home() {
 
   return (
     <div className="shell-container">
-      <section className="mb-8 overflow-hidden rounded-[1.5rem] border border-[#9CC4E4]/70 bg-white shadow-[0_24px_60px_-36px_rgba(27,50,95,0.35)] sm:rounded-[2rem]">
-        <div className="grid items-stretch lg:grid-cols-[minmax(0,1fr)_22rem]">
-          <div className="px-5 py-6 sm:px-10 sm:py-10">
-            <span className="eyebrow"><Sparkles size={12} /> Built around your interests</span>
-            <h1 className="gradient-heading mt-5 max-w-2xl text-[2.55rem] font-bold leading-[1.02] sm:text-5xl sm:leading-[1.08]">
-              Find your people. Share your world.
-            </h1>
-            <p className="mt-4 max-w-xl text-base leading-7 text-slate-500 sm:text-lg">
-              InterestHub helps you turn hobbies, projects, ideas, and obsessions into conversations with people who actually care.
-            </p>
-            <div className="mt-6 grid grid-cols-3 gap-2 rounded-2xl bg-[#E9F2F9]/70 p-2 text-center text-xs font-semibold text-[#1B325F] sm:max-w-xl sm:text-sm">
-              <div className="rounded-xl bg-white px-2 py-3 shadow-sm">Post interests</div>
-              <div className="rounded-xl bg-white px-2 py-3 shadow-sm">Meet creators</div>
-              <div className="rounded-xl bg-white px-2 py-3 shadow-sm">Save ideas</div>
-            </div>
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              {user ? (
-                <Link href="/create-post" className="primary-button w-full sm:w-auto">
-                  <PenLine size={16} />
-                  Share your first interest
-                </Link>
-              ) : (
-                <Link href="/register" className="primary-button w-full sm:w-auto">
-                  Start exploring
-                  <ArrowRight size={16} />
-                </Link>
-              )}
-              <Link href="/explore" className="secondary-button w-full sm:w-auto"><Search size={16} /> Browse interests</Link>
-            </div>
+      <section className="mb-10 py-6 sm:py-10">
+        <div className="max-w-5xl">
+          <span className="eyebrow"><Sparkles size={12} /> Built around your interests</span>
+          <h1 className="gradient-heading mt-5 max-w-4xl text-[2.55rem] font-bold leading-[1.02] sm:text-6xl sm:leading-[1.02]">
+            Find your people. Share your world.
+          </h1>
+          <p className="mt-5 max-w-3xl text-base leading-7 text-slate-500 sm:text-xl sm:leading-9">
+            InterestHub helps you turn hobbies, projects, ideas, and obsessions into conversations with people who actually care.
+          </p>
+
+          <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm font-bold text-[#0A504A] sm:text-base">
+            {['Post interests', 'Meet creators', 'Save ideas'].map((item) => (
+              <span key={item} className="inline-flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#00AA6B]" />
+                {item}
+              </span>
+            ))}
           </div>
-          <div className="border-t border-[#E9F2F9] bg-[#F8FBFD] p-5 lg:border-l lg:border-t-0">
-            <div className="grid gap-3 text-sm lg:h-full lg:content-center">
-              <Link href="/explore" className="group rounded-2xl border border-[#D6E8F5] bg-white/85 p-4 text-left transition hover:border-[#9CC4E4] hover:bg-white">
-                <div className="mb-3 flex items-center justify-between gap-3">
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#E9F2F9] text-[#1B325F]">
-                  <Flame size={17} />
-                  </span>
-                  <span className="rounded-full bg-[#E9F2F9] px-2.5 py-1 text-[0.68rem] font-bold uppercase tracking-wide text-[#1B325F]">Discover</span>
-                </div>
-                <p className="text-base font-bold leading-tight text-[#1B325F]">Never run out of things to explore.</p>
-                <p className="mt-1.5 text-sm leading-5 text-slate-500">Browse posts by interests, tags, and creators instead of scrolling a random feed.</p>
-                <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-[#1B325F]">
+
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            {user ? (
+              <Link href="/create-post" className="primary-button w-full sm:w-auto">
+                <PenLine size={16} />
+                Share your first interest
+              </Link>
+            ) : (
+              <Link href="/register" className="primary-button w-full sm:w-auto">
+                Start exploring
+                <ArrowRight size={16} />
+              </Link>
+            )}
+            <Link href="/explore" className="secondary-button w-full sm:w-auto"><Search size={16} /> Browse interests</Link>
+          </div>
+
+          <div className="mt-8 grid gap-5 border-t border-[#A2E6B8]/60 pt-6 sm:grid-cols-2">
+            <Link href="/explore" className="group flex items-start gap-4 text-left">
+              <Flame className="mt-0.5 shrink-0 text-[#00AA6B]" size={20} />
+              <span>
+                <span className="block text-base font-bold leading-tight text-[#0A504A]">Never run out of things to explore.</span>
+                <span className="mt-1.5 block text-sm leading-6 text-slate-500">Browse posts by interests, tags, and creators instead of scrolling a random feed.</span>
+                <span className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-[#00AA6B]">
                   Explore posts <ArrowRight className="transition group-hover:translate-x-0.5" size={15} />
                 </span>
-              </Link>
-              <Link href="/users" className="group rounded-2xl border border-[#D6E8F5] bg-white/85 p-4 text-left transition hover:border-[#9CC4E4] hover:bg-white">
-                <div className="mb-3 flex items-center justify-between gap-3">
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#E9F2F9] text-[#1B325F]">
-                  <UsersRound size={17} />
-                  </span>
-                  <span className="rounded-full bg-[#E9F2F9] px-2.5 py-1 text-[0.68rem] font-bold uppercase tracking-wide text-[#1B325F]">Connect</span>
-                </div>
-                <p className="text-base font-bold leading-tight text-[#1B325F]">Follow people who share your niche.</p>
-                <p className="mt-1.5 text-sm leading-5 text-slate-500">Find makers, learners, hobbyists, and creators around the topics you care about.</p>
-                <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-[#1B325F]">
+              </span>
+            </Link>
+            <Link href="/users" className="group flex items-start gap-4 text-left">
+              <UsersRound className="mt-0.5 shrink-0 text-[#00AA6B]" size={20} />
+              <span>
+                <span className="block text-base font-bold leading-tight text-[#0A504A]">Follow people who share your niche.</span>
+                <span className="mt-1.5 block text-sm leading-6 text-slate-500">Find makers, learners, hobbyists, and creators around the topics you care about.</span>
+                <span className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-[#00AA6B]">
                   Meet creators <ArrowRight className="transition group-hover:translate-x-0.5" size={15} />
                 </span>
-              </Link>
-            </div>
+              </span>
+            </Link>
           </div>
         </div>
       </section>

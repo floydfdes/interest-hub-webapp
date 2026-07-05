@@ -16,7 +16,7 @@ export default function RichText({ text, className }: RichTextProps) {
                 if (/^@[a-zA-Z0-9_]{3,30}$/.test(part)) {
                     const username = part.slice(1);
                     return (
-                        <Link key={`${part}-${index}`} href={`/users?query=${encodeURIComponent(username)}`} className="font-semibold text-[#1B325F] hover:text-[#F26C4F]">
+                        <Link key={`${part}-${index}`} href={`/users?query=${encodeURIComponent(username)}`} className="font-semibold text-[#0A504A] hover:text-[#00AA6B]">
                             {part}
                         </Link>
                     );
@@ -25,7 +25,7 @@ export default function RichText({ text, className }: RichTextProps) {
                 if (/^#[a-zA-Z0-9_-]+$/.test(part)) {
                     const tag = part.slice(1).toLowerCase();
                     return (
-                        <Link key={`${part}-${index}`} href={`/explore?tag=${encodeURIComponent(tag)}`} className="font-semibold text-[#1B325F] hover:text-[#F26C4F]">
+                        <Link key={`${part}-${index}`} href={`/explore?tag=${encodeURIComponent(tag)}`} className="font-semibold text-[#0A504A] hover:text-[#00AA6B]">
                             {part}
                         </Link>
                     );

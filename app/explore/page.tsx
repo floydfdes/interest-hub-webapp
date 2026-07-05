@@ -366,7 +366,7 @@ export default function Explore() {
       {trendingTags.length > 0 && (
         <section className="surface mb-7 p-4 sm:p-5">
           <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-slate-700">
-            <Hash size={16} className="text-[#F26C4F]" />
+            <Hash size={16} className="text-[#00AA6B]" />
             Trending tags
           </div>
           <div className="flex flex-wrap gap-2">
@@ -378,8 +378,8 @@ export default function Explore() {
                 aria-pressed={selectedTag === tag.tag}
                 className={`rounded-full border px-3 py-1.5 text-sm font-semibold transition ${
                   selectedTag === tag.tag
-                    ? "border-[#9CC4E4] bg-[#E9F2F9] text-[#1B325F]"
-                    : "border-slate-200 bg-white text-slate-600 hover:border-[#9CC4E4] hover:text-[#1B325F]"
+                    ? "border-[#A2E6B8] bg-[#F7F7F2] text-[#0A504A]"
+                    : "border-slate-200 bg-white text-slate-600 hover:border-[#A2E6B8] hover:text-[#0A504A]"
                 }`}
               >
                 #{tag.tag}
@@ -547,7 +547,7 @@ export default function Explore() {
               <div className={viewMode === "cards" ? "p-5" : "min-w-0 flex-1 py-1"}>
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="tag-pill">{post.category}</span>
-                  {post.isPinned && <span className="inline-flex items-center gap-1 rounded-full bg-[#E9F2F9] px-2 py-1 text-xs font-semibold text-[#1B325F]"><Pin size={12} /> Pinned</span>}
+                  {post.isPinned && <span className="inline-flex items-center gap-1 rounded-full bg-[#F7F7F2] px-2 py-1 text-xs font-semibold text-[#0A504A]"><Pin size={12} /> Pinned</span>}
                 </div>
                 <h2 className={`${viewMode === "cards" ? "mt-4" : "mt-3"} text-xl font-semibold tracking-tight text-slate-900`}>{post.title}</h2>
                 <p className={`mt-2 text-sm leading-6 text-slate-500 ${viewMode === "cards" ? "line-clamp-2" : "line-clamp-3"}`}><RichText text={post.content} /></p>

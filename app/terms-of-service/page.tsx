@@ -158,10 +158,10 @@ export default function TermsOfService() {
       <section className="surface mt-6 p-6 sm:p-7">
         <h2 className="text-xl font-bold text-slate-900">Quick summary</h2>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          <p className="rounded-2xl bg-[#E9F2F9] p-4 text-sm leading-6 text-[#1B325F]">Use InterestHub to share and discover interests respectfully.</p>
-          <p className="rounded-2xl bg-[#E9F2F9] p-4 text-sm leading-6 text-[#1B325F]">You are responsible for your account and the content you post.</p>
-          <p className="rounded-2xl bg-[#E9F2F9] p-4 text-sm leading-6 text-[#1B325F]">Privacy, block, mute, hide, archive, and notification settings help control your experience.</p>
-          <p className="rounded-2xl bg-[#E9F2F9] p-4 text-sm leading-6 text-[#1B325F]">Reports and moderation tools exist to protect the community.</p>
+          <p className="rounded-2xl bg-[#F7F7F2] p-4 text-sm leading-6 text-[#0A504A]">Use InterestHub to share and discover interests respectfully.</p>
+          <p className="rounded-2xl bg-[#F7F7F2] p-4 text-sm leading-6 text-[#0A504A]">You are responsible for your account and the content you post.</p>
+          <p className="rounded-2xl bg-[#F7F7F2] p-4 text-sm leading-6 text-[#0A504A]">Privacy, block, mute, hide, archive, and notification settings help control your experience.</p>
+          <p className="rounded-2xl bg-[#F7F7F2] p-4 text-sm leading-6 text-[#0A504A]">Reports and moderation tools exist to protect the community.</p>
         </div>
       </section>
 

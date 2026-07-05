@@ -108,7 +108,7 @@ export default function ProfilePage() {
     return (
         <div className="shell-container max-w-5xl">
             <section className="surface overflow-hidden p-0">
-                <div className="h-36 bg-gradient-to-br from-[#1B325F] via-[#9CC4E4] to-[#E9F2F9] sm:h-44" />
+                <div className="h-36 bg-gradient-to-br from-[#0A504A] via-[#A2E6B8] to-[#F7F7F2] sm:h-44" />
                 <div className="px-5 pb-6 sm:px-8 sm:pb-8">
                     <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
                         <div className="-mt-14 flex flex-col gap-4 sm:flex-row sm:items-end">
@@ -152,10 +152,10 @@ export default function ProfilePage() {
                     )}
 
                     {completion && completion.percentage < 100 && (
-                        <div className="mt-6 max-w-2xl rounded-2xl border border-[#9CC4E4]/50 bg-[#E9F2F9]/70 p-4">
+                        <div className="mt-6 max-w-2xl rounded-2xl border border-[#A2E6B8]/50 bg-[#F7F7F2]/70 p-4">
                             <div className="flex flex-wrap items-center justify-between gap-3">
                                 <div>
-                                    <p className="text-sm font-bold text-[#1B325F]">Profile {completion.percentage}% complete</p>
+                                    <p className="text-sm font-bold text-[#0A504A]">Profile {completion.percentage}% complete</p>
                                     {completion.missingFields.length > 0 && (
                                         <p className="mt-1 text-sm text-slate-500">Add {completion.missingFields.join(', ')} to complete your profile.</p>
                                     )}
@@ -163,7 +163,7 @@ export default function ProfilePage() {
                                 <button type="button" onClick={() => router.push('/profile/edit')} className="secondary-button !min-h-0 !py-2">Update profile</button>
                             </div>
                             <div className="mt-3 h-2 overflow-hidden rounded-full bg-white">
-                                <div className="h-full rounded-full bg-[#1B325F]" style={{ width: `${completion.percentage}%` }} />
+                                <div className="h-full rounded-full bg-[#0A504A]" style={{ width: `${completion.percentage}%` }} />
                             </div>
                         </div>
                     )}
@@ -186,17 +186,17 @@ export default function ProfilePage() {
             </section>
 
             <nav className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" aria-label="Profile shortcuts">
-                <Link href={`/users/${user._id}`} className="surface flex items-center gap-3 p-4 text-sm font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:text-[#1B325F]">
-                    <Eye size={18} className="text-[#1B325F]" /> View public profile
+                <Link href={`/users/${user._id}`} className="surface flex items-center gap-3 p-4 text-sm font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:text-[#0A504A]">
+                    <Eye size={18} className="text-[#0A504A]" /> View public profile
                 </Link>
-                <Link href="/profile/drafts" className="surface flex items-center gap-3 p-4 text-sm font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:text-[#1B325F]">
-                    <FileText size={18} className="text-[#1B325F]" /> Drafts
+                <Link href="/profile/drafts" className="surface flex items-center gap-3 p-4 text-sm font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:text-[#0A504A]">
+                    <FileText size={18} className="text-[#0A504A]" /> Drafts
                 </Link>
-                <Link href="/profile/review-posts" className="surface flex items-center gap-3 p-4 text-sm font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:text-[#1B325F]">
-                    <ShieldAlert size={18} className="text-[#1B325F]" /> Under review
+                <Link href="/profile/review-posts" className="surface flex items-center gap-3 p-4 text-sm font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:text-[#0A504A]">
+                    <ShieldAlert size={18} className="text-[#0A504A]" /> Under review
                 </Link>
-                <Link href="/saved" className="surface flex items-center gap-3 p-4 text-sm font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:text-[#1B325F]">
-                    <Bookmark size={18} className="text-[#1B325F]" /> Saved posts
+                <Link href="/saved" className="surface flex items-center gap-3 p-4 text-sm font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:text-[#0A504A]">
+                    <Bookmark size={18} className="text-[#0A504A]" /> Saved posts
                 </Link>
             </nav>
 
@@ -232,7 +232,7 @@ export default function ProfilePage() {
                                         className="object-cover transition duration-300 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-x-0 top-0 bg-gradient-to-b from-slate-950/70 to-transparent p-3 text-white opacity-0 transition group-hover:opacity-100">
-                                        {post.isPinned && <span className="mb-2 inline-flex rounded-full bg-white/90 px-2 py-1 text-[0.68rem] font-semibold text-[#1B325F]">Pinned</span>}
+                                        {post.isPinned && <span className="mb-2 inline-flex rounded-full bg-white/90 px-2 py-1 text-[0.68rem] font-semibold text-[#0A504A]">Pinned</span>}
                                         <p className="truncate text-sm font-semibold">{post.title}</p>
                                     </div>
                                 </Link>
